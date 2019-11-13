@@ -1,0 +1,85 @@
+body {
+    color: #333333;
+    font-family: Droid Sans;
+    max-width: 100%;
+    text-align: center;
+    margin:0 auto;
+    padding: 0 50px;
+
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    background-color: yellowgreen;
+    margin: 5px;
+    padding: 5px;
+    color: #888888;
+    border-top: 1px solid green;    
+}
+
+header {
+    margin: 15px;
+}
+
+header a {
+    color:grey;
+    text-decoration: none;
+    font-size: 10pt;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.imgAll {
+    height:100px;
+}
+
+.main-content {
+   flex-grow: 1; 
+}
+
+input {
+    border: 1px solid #cccccc;
+    padding: 8px;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid #888888;
+    background: #888888;
+    color: white;
+    padding: 8px;
+}
+
+p#message-1 {
+    color: green;
+}
+
+p#message-2 {
+    color: red;
+}
+
+p#resultsFor {
+    font-style: italic;
+    font-size: 8pt;
+    color:red;
+}
+
+p#placeName {
+    font-weight: bold;
+}
+
+p#temperature {
+    font-weight: bold;
+    font-size: 14pt;
+    color: navy;
+}
+
+p#createdBy {
+    font-size: 8pt;
+    font-style: italic;
+    color: grey;
+}
