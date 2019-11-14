@@ -42,6 +42,7 @@ const err = function (msg) {
 
 
 const app = express()
+const port = process.env.PORT || 3000
 
 //Define paths for express config
 
@@ -149,8 +150,8 @@ app.get('*', (req, res) => {
 
 
 //Setup Server
-app.listen(3000, () => {
-    console.log('Server is up and running on port 3000.')
+app.listen(port, () => {
+    console.log('Server is up and running on port ' + port + '.')
 })
 
 
