@@ -145,7 +145,7 @@ app.get('/weather', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.send('error', errorModel)
+    res.render('error', errorModel)
 })
 
 
