@@ -117,10 +117,6 @@ app.get('/help', (req, res) => {
     res.render('help', helpModel)
 })
 
-app.get('/help/*', (req, res) => {
-    res.render('error', errorHelpModel)
-})
-
 app.get('/weather', (req, res) => {
     if (!req.query.location) {
         errorModel.description = 'You must provide a location'
@@ -145,6 +141,12 @@ app.get('/weather', (req, res) => {
 })
 
 app.get('*', (req, res) => {
+    errorModel = {
+        title: 'Weather App - Error',
+        dateToday: new Date(),
+        description: 'That page does not exist',
+        name: 'Dalene Serfontein'
+    }
     res.render('error', errorModel)
 })
 
