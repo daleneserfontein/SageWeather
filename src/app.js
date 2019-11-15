@@ -1,3 +1,13 @@
+//*****************************************
+// Local testing
+// localhost:3000
+//
+// This app has been deployed to heroku
+// https://serfontein-weather.herokuapp.com/
+//
+//*****************************************
+
+
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
