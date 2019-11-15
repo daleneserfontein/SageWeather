@@ -25,7 +25,7 @@ weatherForm.addEventListener('submit', (e) => {
           response.json().then((data) => {   
               if (data.placeName) {
                 document.querySelector('#resultsFor').textContent = 'Results for "' + location + '"'
-                document.querySelector('#placeName').textContent = data.placeName + ' ' + data.temperature
+                document.querySelector('#placeName').textContent = 'Today in ' + data.placeName + ' it is ' + data.temperature
                 document.querySelector('#highlow').textContent = 'Low ' + data.low + ' and High ' + data.high 
                 document.querySelector('#latitude').textContent = 'Latitude: ' + data.latitude
                 document.querySelector('#longitude').textContent = 'Longitude: ' + data.longitude
