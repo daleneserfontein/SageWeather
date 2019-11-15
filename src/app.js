@@ -72,7 +72,9 @@ let indexModel = {
     location: '',
     summary: '',
     rain:'',
-    temparature:''
+    temparature:'',
+    high:'',
+    low:''
 }
 
 let aboutModel = {
