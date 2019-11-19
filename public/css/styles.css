@@ -60,6 +60,57 @@ body {
     border-top: 1px solid rgb(18, 76, 80);    
 }
 
+
+#mongoHeader {
+    margin: 15px;
+}
+
+#mongoHeader a {
+    color:grey;
+    text-decoration: none;
+}
+
+#mongoFooter h5 {
+    background-color:#FF6000;
+    margin: 2px;
+    padding: 15px;
+    color:white;
+    border-top: 1px solid rgb(18, 76, 80);    
+}
+
+#fileHeader h1 {
+    background-color: #FF6000;
+    margin: 2px;
+    padding: 15px;
+    color: white;
+    border-top: 1px solid rgb(18, 76, 80);    
+}
+
+#fileHeader {
+    margin: 15px;
+}
+
+#fileHeader a {
+    color:grey;
+    text-decoration: none;
+}
+
+#fileFooter h5 {
+    background-color:#01C584;
+    margin: 2px;
+    padding: 15px;
+    color:white;
+    border-top: 1px solid rgb(18, 76, 80);    
+}
+
+#fileHeader h1 {
+    background-color: #01C584;
+    margin: 2px;
+    padding: 15px;
+    color: white;
+    border-top: 1px solid rgb(18, 76, 80);    
+}
+
 .imgAll {
     height:100px;
 }

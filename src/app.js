@@ -13,6 +13,9 @@ const express = require('express')
 const hbs = require('hbs')
 
 const appWeather = require('./appWeather')
+const appMongo = require('./appMongo')
+const appFile = require('./appFile')
+
 const homeModel = require('../public/dto/homeModel')
 const logging = require('./logging')
 const port = process.env.PORT || 3000
@@ -40,6 +43,8 @@ hbs.registerPartials(partialsPath)
 //Setup static directory to serve
 app.use(express.static(htmlFilePath))
 app.use(appWeather)
+app.use(appMongo)
+app.use(appFile)
 
 
 

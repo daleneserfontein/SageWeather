@@ -1,5 +1,5 @@
 const request = require('request')
-const myDB = require('./mongodb')
+const myDB = require('./mongo')
 
 module.exports.getForecast = (url, data, callback) => {
 
