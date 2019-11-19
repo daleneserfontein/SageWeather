@@ -21,7 +21,7 @@ weatherForm.addEventListener('submit', (e) => {
     
     const location = search.value
     
-    fetch('/weather?location='+ encodeURIComponent(location)).then((response) => {               
+    fetch('/weather/main?location='+ encodeURIComponent(location)).then((response) => {               
           response.json().then((data) => {   
               if (data.placeName) {
                 document.querySelector('#resultsFor').textContent = 'Results for "' + location + '"'

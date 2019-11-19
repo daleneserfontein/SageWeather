@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>{{title}}</title>
-        <link rel="icon" href="img/weathericon.png">
-        <link rel="stylesheet" href="/css/styles.css">        
-    </head>
-    <body>
-        <div class="main-content">
-            {{>header}}            
-            <img class="imgAll" src="/img/weathericon.png">
+
+            <img class="imgAll" src="/img/weather/weather.png">
             
             <p>{{description}}</p>
             <p id="resultsFor">Results for "{{location}}"</p>
@@ -26,10 +17,4 @@
             <p id="summary">{{summary}}</p>
             <p id="rain">{{rain}}</p>
 
-            </div>
-        {{>footer}}
-{{!-- only load js file after the html elements loaded --}}
-        <script src="/js/app.js"></script>
-    </body>
-    
-</html>
+<script src="/js/appWeather.js"></script>
