@@ -1,10 +1,11 @@
 <header id="fileHeader">
 <h1>{{title}}</h1>
 <br>
-<div id="menuItems">
-    <a href="/">Home</a> |
-    <a href="/file">File</a>
-
-    <p id="createdBy">Created by {{name}}</p>
+{{>homeMenu}} 
+<br>
+{{>fileMenu}} 
+<div id="createdBy">
+    <p>Created by {{name}}</p>
 </div>
+
 </header>

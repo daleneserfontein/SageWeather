@@ -1,3 +1,6 @@
+/* ======================================================== */
+/* ================== BASIC =============================== */
+/* ======================================================== */
 body {
     font-family: 'Alatsi', 'sans-serif';
     color: #333333;    
@@ -10,7 +13,42 @@ body {
     min-height: 100vh;    
 }
 
+input {
+    border: 1px solid #cccccc;
+    padding: 8px;
+    font-family: 'Alatsi', 'sans-serif';
+}
 
+button {
+    cursor: pointer;
+    border: 1px solid #5C39F7;
+    background:#5C39F7;
+    color: white;
+    padding: 8px;
+    font-family: 'Alatsi', 'sans-serif';
+}
+
+td {
+    text-align: left;
+    vertical-align: top;
+}
+
+table {
+    margin: 2px;
+    padding: 2px;
+    color: rgb(18, 76, 80);
+    width:100%;   
+}
+
+code {
+    background-color: lightgray;
+    border-radius: 5px;
+    padding:2px;
+}
+
+/* ======================================================== */
+/* ================== HOME ================================ */
+/* ======================================================== */
 #homeHeader {
     margin: 15px;
 }
@@ -34,6 +72,14 @@ body {
     color: white;
 }
 
+#homeBody #homeMenuHome {
+    color:navy;
+}
+
+
+/* ======================================================== */
+/* ================== WEATHER ============================= */
+/* ======================================================== */
 
 #weatherHeader {
     margin: 15px;
@@ -60,6 +106,18 @@ body {
     border-top: 1px solid rgb(18, 76, 80);    
 }
 
+#weatherBody #homeMenuWeather {
+    color:#5C39F7;
+}
+
+/* #weatherBody #weatherMenuWeather {
+    color:#5C39F7;
+} */
+
+
+/* ======================================================== */
+/* ================== MONGO =============================== */
+/* ======================================================== */
 
 #mongoHeader {
     margin: 15px;
@@ -77,6 +135,26 @@ body {
     color:white;
     border-top: 1px solid rgb(18, 76, 80);    
 }
+
+#mongoHeader h1 {
+    background-color:#FF6000;
+    margin: 2px;
+    padding: 15px;
+    color: white;
+    border-top: 1px solid rgb(18, 76, 80);    
+}
+
+#mongoDiv td {
+    border: 1px solid #FF6000;
+}
+
+#mongoBody #homeMenuMongo {
+    color:#FF6000;
+}
+
+/* ======================================================== */
+/* ================== FILE ================================ */
+/* ======================================================== */
 
 #fileHeader h1 {
     background-color: #FF6000;
@@ -111,6 +189,15 @@ body {
     border-top: 1px solid rgb(18, 76, 80);    
 }
 
+#fileBody #homeMenuFile {
+    color:#01C584;
+}
+
+
+/* ======================================================== */
+/* ================== CLASS =============================== */
+/* ======================================================== */
+
 .imgAll {
     height:100px;
 }
@@ -119,21 +206,9 @@ body {
    flex-grow: 1; 
 }
 
-input {
-    border: 1px solid #cccccc;
-    padding: 8px;
-    font-family: 'Alatsi', 'sans-serif';
-}
-
-button {
-    cursor: pointer;
-    border: 1px solid #5C39F7;
-    background:#5C39F7;
-    color: white;
-    padding: 8px;
-    font-family: 'Alatsi', 'sans-serif';
-}
-
+/* ======================================================== */
+/* ================== IDS ================================= */
+/* ======================================================== */
 p#errMessage {    
     color:red;
     font-weight: bold;
@@ -152,36 +227,12 @@ p#placeName {
     font-size: smaller;
 }
 
-td {
-    text-align: left;
-    vertical-align: top;
-}
-
-table {
-    margin: 2px;
-    padding: 2px;
-    color: rgb(18, 76, 80);
-    width:100%;   
-}
-
-code {
-    background-color: lightgray;
-    border-radius: 5px;
-    padding:2px;
-}
-
 #menuItems {
     font-size: larger;
 }
-/* 
-#mongoDiv table {
-    border: 1px solid #FF6000;
+
+#subMenuItems {
+    font-size: large;
 }
 
-#mongoDiv tr {
-    border: 1px solid #FF6000;
-} */
 
-#mongoDiv td {
-    border: 1px solid #FF6000;
-}

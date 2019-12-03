@@ -4,14 +4,17 @@
         <title>{{title}}</title>
         <link rel="icon" href="img/mongo/mongo.png">
         <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/styles.css">        
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
-    <body id="mongoBody">
+    <body>
         <div class="main-content">
-            {{>mongoHeader}}            
-            {{{body}}}            
+        {{>mongoHeader}}
+        <img class="imgAll" src="/img/mongo/error.png">
+        
+        <p>{{description}}</p>
+        
         </div>
         {{>mongoFooter}}
     </body>
-    
+      
 </html>

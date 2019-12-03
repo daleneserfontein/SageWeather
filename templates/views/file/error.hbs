@@ -2,16 +2,19 @@
 <html>
     <head>
         <title>{{title}}</title>
-        <link rel="icon" href="img/weather/weather.png">
+        <link rel="icon" href="img/file/file.png">
         <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/styles.css">
     </head>
-    <body id="weatherBody">
+    <body>
         <div class="main-content">
-        {{>weatherHeader}}
-        {{{body}}}        
-        </div>     
-        {{>weatherFooter}}
+        {{>fileHeader}}
+        <img class="imgAll" src="/img/file/error.png">
+        
+        <p>{{description}}</p>
+        
+        </div>
+        {{>fileFooter}}
     </body>
       
 </html>

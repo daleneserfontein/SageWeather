@@ -1,10 +1,11 @@
 <header id="mongoHeader">
 <h1>{{title}}</h1>
 <br>
-<div id="menuItems">
-    <a href="/">Home</a> |
-    <a href="/mongo">Mongo</a>
-
-    <p id="createdBy">Created by {{name}}</p>
+{{>homeMenu}} 
+<br>
+{{>mongoMenu}} 
+<div id="createdBy">
+    <p>Created by {{name}}</p>
 </div>
+
 </header>
