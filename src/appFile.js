@@ -44,6 +44,108 @@ app.get('/file', (req, res) => {
     res.render('index', fileModel)
 })
 
+// app.get('/file/main', (req, res) => {
+//     fileModel.name = appOwner
+//     res.render('index', fileModel)
+// })
+
+app.get('/file/main', (req, res) => {
+    if (!req.query.a) {
+        fileModel.errMessage = 'You must provide an action'
+        return res.send(errorModel)
+    }
+    if (!req.query.f) {
+        fileModel.errMessage = 'You must provide a file name'
+        return res.send(fileModel)
+    }
+
+    if (req.query.a === 'l') {
+        fileCrud.listJsonFromFile(req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'List file contents'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    } else if (req.query.a === 'c') {
+        fileCrud.clearJsonFromFile(req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'Clear file contents'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    } else if (req.query.a === 'g') {
+        if (!req.query.id) {
+            fileModel.errMessage = 'You must provide an id'
+            return res.send(fileModel)
+        }
+        fileCrud.getJsonFromFile(req.query.id, req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'Get Item'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    } else if (req.query.a === 'a') {
+        if (!req.query.id) {
+            fileModel.errMessage = 'You must provide an id'
+            return res.send(fileModel)
+        }
+        if (!req.query.body) {
+            fileModel.errMessage = 'You must provide a body'
+            return res.send(fileModel)
+        }
+        fileCrud.addJsonToFile(req.query.id, req.query.body, req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'Add Item'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    } else if (req.query.a === 'e') {
+        if (!req.query.id) {
+            fileModel.errMessage = 'You must provide an id'
+            return res.send(fileModel)
+        }
+        if (!req.query.body) {
+            fileModel.errMessage = 'You must provide a body'
+            return res.send(fileModel)
+        }
+        fileCrud.editJsonFromFile(req.query.id, req.query.body, req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'Edit Item'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    } else if (req.query.a === 'r') {
+        if (!req.query.id) {
+            fileModel.errMessage = 'You must provide an id'
+            return res.send(fileModel)
+        }
+        fileCrud.editJsonFromFile(req.query.id, req.query.f, (error, data) => {
+            if (error) {
+                return fileModel.errMessage = error
+            }
+
+            fileModel.message = 'Remove Item'
+            fileModel.data = data
+            res.send(fileModel)
+        })
+    }
+})
+
 app.get('file/about', (req, res) => {
     aboutModel.name = appOwner
     aboutModel.title = 'Files - About'

@@ -12,7 +12,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.listJsonFromFile(argv.fileName) }
+    handler(argv) { fileCrud.listJsonFromFile(argv.fileName, null) }
 })
 
 yargs.command({
@@ -25,7 +25,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.clearJsonFromFile(argv.fileName) }
+    handler(argv) { fileCrud.clearJsonFromFile(argv.fileName, null) }
 })
 
 yargs.command({
@@ -43,7 +43,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.getJsonFromFile(argv.id, argv.fileName) }
+    handler(argv) { fileCrud.getJsonFromFile(argv.id, argv.fileName, null) }
 })
 
 yargs.command({
@@ -66,7 +66,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.addJsonToFile(argv.id, argv.body, argv.fileName) }
+    handler(argv) { fileCrud.addJsonToFile(argv.id, argv.body, argv.fileName, null) }
 })
 
 yargs.command({
@@ -89,7 +89,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.editJsonFromFile(argv.id, argv.body, argv.fileName) }
+    handler(argv) { fileCrud.editJsonFromFile(argv.id, argv.body, argv.fileName, null) }
 })
 
 yargs.command({
@@ -107,7 +107,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.removeJsonFromFile(argv.id, argv.fileName) }
+    handler(argv) { fileCrud.removeJsonFromFile(argv.id, argv.fileName, null) }
 })
 
 yargs.parse()

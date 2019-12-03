@@ -1,3 +1,36 @@
 
         <img class="imgAll" src="/img/file/help.png">
-        <p>{{description}}</p>        
+        <p>{{description}}</p>  
+
+        <div id="fileHelpDiv">
+                <p>This application will do CRUD operations on a file as json objects</p>
+<br>
+<p>Run the following in a command prompt</p>
+    <p>node app.js --help</p>
+    <p>This will list what this application can do.</p>
+    <br>
+    <p>node app.js list </p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will list all entries in the "filename" file</pre></p>
+    <p>node app.js clear</p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will remove all contents from the "filename" file</pre></p>
+    <p>node app.js get</p>
+        <p><pre>--id id</pre></p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will get a single json entry from the file "filename" with the id "id"</pre></p>
+    <p>node app.js add</p>
+        <p><pre>--id id</pre></p>
+        <p><pre>--body "body of the file"</pre></p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will add a json entry to the file "filename" with the id "id" and "body" specified</pre></p>
+    <p>node app.js edit</p>
+        <p><pre>--id id</pre></p>
+        <p><pre>--body "body of the file"</pre></p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will edit a json entry in the file "filename" with the id "id" and change the body to "body of the file" specified</pre></p>
+    <p>node app.js remove</p>
+        <p><pre>--id id</pre></p>
+        <p><pre>--filename "filename"</pre></p>
+        <p><pre>&nbsp;&nbsp;&nbsp;&nbsp;=> this will remove the json entry in the file "filename" with the id "id"</pre></p>
+        </div>      
