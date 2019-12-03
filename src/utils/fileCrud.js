@@ -1,237 +1,192 @@
 const fs = require('fs')
-const chalk = require('chalk')
 const path = require('path')
-const logging = require('../logging')
-
-const filePath = path.join(__dirname, '../../ouput/')
+const filePath = path.join(__dirname, '../../output/')
 
 const fileExists = (fileName) => {
     return fs.existsSync(path.join(filePath, fileName))    
 }
 
-const loadEntries = (fileName) => {    
-    try
-    {
-        if (fileExists(fileName)) {
+const loadEntries = (fileName, callback) => {
+    try {
+        if (fileExists(fileName))
+        {            
             const fileJSONBUFFER = fs.readFileSync(path.join(filePath, fileName))
             const fileJSON = fileJSONBUFFER.toString()
-            return JSON.parse(fileJSON)
+            // console.log(fileJSON)
+            callback(null, JSON.parse(fileJSON))
         } else {
-            logging.err('File does not exist!')
-            return []
+            callback(null, [])
         }
     }
-    catch(e) {
-        logging.err(e.toString())
-        return []
+    catch (e) {
+        callback(e.toString())
     }
 }
 
-const saveEntries = (jsonArray, fileName) => {
-    try
-    {
+const saveEntries = (jsonArray, fileName, callback) => {
+    try {
         const jsonString = JSON.stringify(jsonArray)
-        fs.writeFileSync(path.join(filePath, fileName), jsonString)
-        return true
+        fs.writeFile(path.join(filePath, fileName), jsonString, (error) => {
+            if (error) {
+                return callback(error)
+            }
+            callback(null)
+        })  
     }
-    catch(e) {
-        logging.err(e.toString())
-        return false
+    catch (e) {
+        callback(e.toString())
     }
 }
 
-module.exports.listJsonFromFile = (fileName, callback) => {    
-    const entries = loadEntries(fileName)
-    if (entries.length > 0) {
-        if (callback === null) {
-            logging.log('List of entries')
-            logging.log(entries)  
-            return entries  
-        } else {
-            callback(null, JSON.stringify(entries))
-        } 
-    } else {
-        if (callback === null) {
-            logging.log('No entries')
-            return entries
-        } else {
-            callback(null, 'No entries')
+module.exports.listJsonFromFile = (fileName, callback) => {
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
         }
-    }        
+        //console.log(data.length)
+        if (data.length > 0) {
+            callback(null, data)
+        } else {
+            callback('No entries')
+        }
+    })
 }
 
-module.exports.clearJsonFromFile = (fileName, callback) => {    
-    const entries = loadEntries(fileName)
-    if (entries.length > 0) {
-        saveEntries([], fileName)
-        if (callback === null) {
-            logging.log('All entries have been removed.')    
+module.exports.clearJsonFromFile = (fileName, callback) => {
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
         }
-        const entries = this.listJsonFromFile(fileName)        
-        if (callback === null) {
-            return entries
+        
+        if (data.length > 0) {
+            saveEntries([], fileName, (serror) => {
+                if (serror) {
+                    return callback(serror)
+                }
+
+                this.listJsonFromFile(fileName, (aerror, adata) => {
+                    if (aerror) {
+                        return callback(aerror)
+                    }
+                    callback(null, adata)
+                })
+            })
         } else {
-            callback(null, JSON.stringify(entries))
+            callback('No json objects to clear from file')
         }
-    } else {
-        if (callback === null) {
-            logging.log('No json objects to clear from file')
-            return entries
-        } else {
-            callback(null, 'No json objects to clear from file')
-        }        
-    }    
+    })
 }
 
 module.exports.getJsonFromFile = (id, fileName, callback) => {
-    const entries = loadEntries(fileName)
-    if (entries.length > 0) {
-        const existEntry = entries.find((entr) => entr.id === id)
-
-        if (existEntry) {
-            if (callback === null) {
-                return entry[0]
-            } else {
-                callback(null, JSON.stringify(entry[0]))
-            }
-        } else {
-            if (callback === null) {
-                logging.err('Failed to get entry.  Entry does not exist.')
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
+        }
+        if (data.length > 0) {
+            const existEntry = data.find((entr) => entr.id === id)
+            if (existEntry) {
+                callback(null, existEntry)
             } else {
                 callback('Failed to get entry.  Entry does not exist.')
-            }            
-        }
-    } else {
-        if (callback === null) {
-            logging.log('No json objects to get from file')
+            }
         } else {
-            callback(null, 'No json objects to get from file')
+            callback('No json objects to get from file')
         }
-    }
+    })
 }
 
 module.exports.addJsonToFile = (id, body, fileName, callback) => {
-    const entries = loadEntries(fileName)
-    const existEntry = entries.find((entr) => entr.id === id)
-    
-    if (!existEntry || typeof existEntry === typeof undefined) {
-        entries.push({
-            id: id,
-            body: body
-        })
-        if (saveEntries(entries, fileName)) {
-            if (callback === null) {
-                logging.log('Entry added')
-                logging.log(entries)
-            } else {
-                callback(null, JSON.stringify(entries))
-            }
-        } else {
-            if (callback === null) {
-                logging.err('Failed to write entries')
-            } else {
-                callback('Failed to write entries')
-            }
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
         }
-    } else {
-        if (callback === null) {
-            logging.err('Failed to add entry.  Entry already exists.')
+
+        const existEntry = data.find((entr) => entr.id === id)
+
+        if (!existEntry || typeof existEntry === typeof undefined) {
+            data.push({
+                id: id,
+                body: body
+            })
+            saveEntries(data, fileName, (serror) => {
+                if (serror) {
+                    return callback(serror)
+                }
+                callback(null, JSON.stringify(data))
+            })
         } else {
-            callback('Failed to add entry.  Entry already exists.')
-        }        
-    }
+            callback('Could not add new entry, entry exist')
+        }
+    })
 }
 
 module.exports.editJsonFromFile = (id, body, fileName, callback) => {
-    const entries = loadEntries(fileName)
-    if (entries.length > 0) {
-        const newEntries = []
-        let entryFound = false
-
-        entries.forEach(function (entry) {
-            if (entry.id === id) {
-                if (callback === null) {
-                    logging.log('Entry found and changed')
-                }
-                entry.body = body
-                entryFound = true
-            }
-            newEntries.push(entry)
-        })
-
-        if (!entryFound) {
-            if (callback === null) {
-                logging.err('Failed to edit entry.  Entry not found.')
-            } else {
-               callback('Failed to edit entry.  Entry not found.') 
-            }
-        } else {
-            if (saveEntries(entries, fileName)) {
-                if (callback === null) {
-                    logging.log(entries)
-                } else {
-                    callback(null, JSON.stringify(entries))
-                }                
-            } else {
-                if (callback === null) {
-                    logging.err('Failed to write entries')
-                } else {
-                    callback('Failed to write entries')
-                }                
-            }
-        }
-    } else {
-        if (callback === null) {
-            logging.log('No json objects to get from file')
-        } else {
-            callback(null, 'No json objects to get from file')
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
         }
         
-    }
+        if (data.length > 0) {
+            const newEntries = []
+            let entryFound = false
+    
+            data.forEach((entry) => {
+                if (entry.id === id) {
+                    entry.body = body
+                    entryFound = true
+                }
+                newEntries.push(entry)
+            })
+    
+            if (!entryFound) {
+                return callback('Failed to edit entry.  Entry not found.')
+                
+            } 
+            saveEntries(newEntries, fileName, (serror) => {
+                if (serror) {
+                    return callback(serror)
+                }
+            }) 
+            callback(null, newEntries)                       
+        } else {
+            callback('No json objects to get from file')                
+        }
+    })    
 }
 
 module.exports.removeJsonFromFile = (id, fileName, callback) => {
-    const entries = loadEntries(fileName)
-    if (entries.length > 0) {
-        const idToRemove = entries.filter((entry) => {
-            return entry.id === id
-        })
-        if (idToRemove.length === 1) {
-            const remainEntries = entries.filter((entry) => {
-                return entry.id !== id
-            })
-
-            if (saveEntries(remainEntries, fileName)) {
-                if (callback === null) {
-                    logging.log('Entry removed.')
-                    logging.log(remainEntries)
-                } else {
-                    callback(null, JSON.stringify(remainEntries))
-                }
-            } else {
-                if (callback === null) {
-                    logging.err('Failed to write entries.')
-                } else {
-                    callback('Failed to write entries.')
-                }                
-            }
-        } else {
-            if (callback === null) {
-                logging.err('Failed to remove entry.  Entry not found.')
-            } else {
-                callback('Failed to remove entry.  Entry not found.')
-            }
-            
+    loadEntries(fileName, (error, data) => {
+        if (error) {
+            return callback(error)
         }
-    } else {
-        if (callback === null) {
-            logging.log('No json objects to get from file')
+
+
+        if (data.length > 0) {
+            const idToRemove = data.filter((entry) => {
+                return entry.id === id
+            })
+            if (idToRemove.length === 1) {
+                const remainEntries = data.filter((entry) => {
+                    return entry.id !== id
+                })
+    
+                saveEntries(remainEntries, fileName, (serror) => {
+                    if (serror) {
+                        return callback(serror)
+                    }
+                })
+                
+                callback(null, remainEntries)                
+            } else {
+                callback('Failed to remove entry.  Entry not found.')                
+    
+            }
         } else {
-            callback(null, 'No json objects to get from file')
-        }        
-    }
+            callback('No json objects to get from file')            
+        }
+    })    
 }
-   
+
 
 
 

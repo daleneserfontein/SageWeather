@@ -4,12 +4,12 @@ module.exports = {
     dateToday: new Date(),
     name: '',    
     description: 'This is a file app',
-    data: {
+    data: [{
         id:0,
-        body: '',
-        fileName: ''        
-    },
-    message: '',
+        body:'',
+        fileName:''
+    }],
+    infoMessage: '',
     errMessage: ''
 }
 

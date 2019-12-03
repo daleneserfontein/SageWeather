@@ -1,10 +1,8 @@
 const fileForm = document.querySelector('form')
 
 const fleName = document.querySelector('#fleName')
-const idProp = document.querySelector('#idProp')
-const bodyProp = document.querySelector('#bodyProp')
-const msg = document.querySelector('#msg')
-const errMsg = document.querySelector('#errMsg')
+const infoMessage = document.querySelector('#infoMessage')
+const errMessage = document.querySelector('#errMessage')
 
 const listFile = document.querySelector('#listFile')
 const clearFile = document.querySelector('#clearFile')
@@ -13,111 +11,126 @@ const addItem = document.querySelector('#addItem')
 const editItem = document.querySelector('#editItem')
 const removeItem = document.querySelector('#removeItem')
 
-const resultFileDiv = document.querySelector('#resultFileDiv')
+const idProp = document.querySelector('#idProp')
+const bodyProp = document.querySelector('#bodyProp')
 
-const idVal = idProp.value
-const bodyVal = bodyProp.value
-const fleVal = fleName.value
+const resultDiv = document.querySelector('#resultDiv')
+
+let idVal = 0
+let bodyVal = ''
+let fleVal = ''
+
+const getValues = () => {
+  idVal = idProp.value
+  bodyVal = bodyProp.value
+  fleVal = fleName.value
+}
 
 const clearValues = () => {
-  resultFileDiv.textContent = ''  
-  msg.textContent = ''
-  errMsg.textContent = ''
+  document.querySelector('#infoMessage').textContent = ''
+  document.querySelector('#errMessage').textContent = ''
+  document.querySelector('#fileDiv').textContent = ''
 }
 
 clearValues()
 
-listFile.addEventListener('submit', (e) => {
-    e.preventDefault()
-    clearValues()
-    fetch('/file/main?a=l&f=' + encodeURIComponent(fleVal.Value)).then((response) => {               
-      response.json().then((data) => { 
-        if (data.errMessage) {
-          errMsg.textContent = data.errMessage          
-        } else {
-          msg.textContent = 'List file contents'
-          resultFileDiv.textContent = JSON.stringify(data)
-        }    
-      })
-    })
-})
-
-clearFile.addEventListener('submit', (e) => {
+listFile.addEventListener('click', (e) => {
   e.preventDefault()
   clearValues()
-  
-  fetch('/file/main?a=c&f=' + encodeURIComponent(fleVal.Value)).then((response) => {               
-    response.json().then((data) => { 
+  getValues()
+  fetch('/file/main?a=l&f=' + encodeURIComponent(fleVal)).then((response) => {
+    response.json().then((data) => {
+
       if (data.errMessage) {
-        errMsg.textContent = data.errMessage          
+        errMessage.textContent = data.errMessage
       } else {
-        msg.textContent = 'Clear file contents'
-        resultFileDiv.textContent = JSON.stringify(data)
-      }    
+        infoMessage.textContent = 'List file contents'
+      }
+      fileDiv.innerHTML = '<tr><td>Id</td><td>Body</td></tr>'
+      for (var i = 0; i < data.data.length; i++) {
+        var obj = data.data[i];
+        fileDiv.innerHTML += '<tr><td>' + obj.id + '</td><td>' + obj.body + '</td></tr>'
+      }
     })
   })
 })
 
-getItem.addEventListener('submit', (e) => {
+clearFile.addEventListener('click', (e) => {
   e.preventDefault()
   clearValues()
-  
-  fetch('/file/main?a=g&f=' + encodeURIComponent(fleVal.Value) + '&id=' + idVal).then((response) => {               
-    response.json().then((data) => { 
+  getValues()
+  fetch('/file/main?a=c&f=' + encodeURIComponent(fleVal)).then((response) => {
+    response.json().then((data) => {
       if (data.errMessage) {
-        errMsg.textContent = data.errMessage          
+        errMessage.textContent = data.errMessage
       } else {
-        msg.textContent = 'Get item from file'
-        resultFileDiv.textContent = JSON.stringify(data)
+        infoMessage.textContent = 'Clear file contents'
       }
     })
-  })  
+  })
 })
 
-addItem.addEventListener('submit', (e) => {
+getItem.addEventListener('click', (e) => {
   e.preventDefault()
   clearValues()
-  
-  fetch('/file/main?a=a&f=' + encodeURIComponent(fleVal.Value) + '&id=' + idVal + '&body=' + encodeURIComponent(bodyVal)).then((response) => {               
-    response.json().then((data) => { 
+  getValues()
+  fetch('/file/main?a=g&f=' + encodeURIComponent(fleVal) + '&id=' + idVal).then((response) => {
+    response.json().then((data) => {
       if (data.errMessage) {
-        errMsg.textContent = data.errMessage          
+        errMessage.textContent = data.errMessage
       } else {
-        msg.textContent = 'Add item to file'
-        resultFileDiv.textContent = JSON.stringify(data)
-      }   
+        infoMessage.textContent = 'Get item from file'
+      }
+      fileDiv.innerHTML = '<tr><td>Id</td><td>Body</td></tr>'
+      var obj = data.data;
+      if (typeof obj.id !== typeof undefined) {
+        fileDiv.innerHTML += '<tr><td>' + obj.id + '</td><td>' + obj.body + '</td></tr>'
+      }
     })
-  })    
+  })
 })
 
-editItem.addEventListener('submit', (e) => {
+addItem.addEventListener('click', (e) => {
   e.preventDefault()
   clearValues()
-  
-  fetch('/file/main?a=e&f=' + encodeURIComponent(fleVal.Value) + '&id=' + idVal + '&body=' + encodeURIComponent(bodyVal)).then((response) => {               
-    response.json().then((data) => { 
+  getValues()
+  fetch('/file/main?a=a&f=' + encodeURIComponent(fleVal) + '&id=' + idVal + '&body=' + encodeURIComponent(bodyVal)).then((response) => {
+    response.json().then((data) => {
       if (data.errMessage) {
-        errMsg.textContent = data.errMessage          
+        errMessage.textContent = data.errMessage
       } else {
-        msg.textContent = 'Edit item in file'
-        resultFileDiv.textContent = JSON.stringify(data)
-      }   
+        infoMessage.textContent = 'Add item to file'
+      }
     })
-  })      
+  })
 })
 
-removeItem.addEventListener('submit', (e) => {
+editItem.addEventListener('click', (e) => {
   e.preventDefault()
   clearValues()
-  
-  fetch('/file/main?a=r&f=' + encodeURIComponent(fleVal.Value) + '&id=' + idVal).then((response) => {               
-    response.json().then((data) => { 
+  getValues()
+  fetch('/file/main?a=e&f=' + encodeURIComponent(fleVal) + '&id=' + idVal + '&body=' + encodeURIComponent(bodyVal)).then((response) => {
+    response.json().then((data) => {
       if (data.errMessage) {
-        errMsg.textContent = data.errMessage          
+        errMessage.textContent = data.errMessage
       } else {
-        msg.textContent = 'Remove item from file'
-        resultFileDiv.textContent = JSON.stringify(data)
-      }   
+        infoMessage.textContent = 'Edit item in file'
+      }
     })
-  })     
+  })
+})
+
+removeItem.addEventListener('click', (e) => {
+  e.preventDefault()
+  clearValues()
+  getValues()
+  fetch('/file/main?a=r&f=' + encodeURIComponent(fleVal) + '&id=' + idVal).then((response) => {
+    response.json().then((data) => {
+      if (data.errMessage) {
+        errMessage.textContent = data.errMessage
+      } else {
+        infoMessage.textContent = 'Remove item from file'
+      }
+    })
+  })
 })

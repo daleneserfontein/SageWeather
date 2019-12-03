@@ -199,6 +199,10 @@ code {
     text-align: center;
 }
 
+#fileDiv td {
+    border: 1px solid #01C584;
+}
+
 /* ======================================================== */
 /* ================== CLASS =============================== */
 /* ======================================================== */
@@ -214,13 +218,14 @@ code {
 /* ======================================================== */
 /* ================== IDS ================================= */
 /* ======================================================== */
-p#errMessage {    
+#errMessage {    
     color:red;
     font-weight: bold;
 }
 
-p#resultsFor {
+#infoMessage {    
     color:green;
+    font-weight: bold;
 }
 
 p#placeName {
@@ -238,6 +243,10 @@ p#placeName {
 
 #subMenuItems {
     font-size: large;
+}
+#resultDiv {
+    text-align: center;
+    width:100%;
 }
 
 

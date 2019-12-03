@@ -1,5 +1,6 @@
 const yargs = require('yargs')
 const fileCrud = require('./utils/fileCrud')
+const logging = require('./logging')
 
 
 yargs.command({
@@ -12,7 +13,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.listJsonFromFile(argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.listJsonFromFile(argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        }) 
+    }
 })
 
 yargs.command({
@@ -25,7 +33,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.clearJsonFromFile(argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.clearJsonFromFile(argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        })
+    }
 })
 
 yargs.command({
@@ -43,7 +58,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.getJsonFromFile(argv.id, argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.getJsonFromFile(argv.id, argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        })
+    }
 })
 
 yargs.command({
@@ -66,7 +88,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.addJsonToFile(argv.id, argv.body, argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.addJsonToFile(argv.id, argv.body, argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        })
+    }
 })
 
 yargs.command({
@@ -89,7 +118,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.editJsonFromFile(argv.id, argv.body, argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.editJsonFromFile(argv.id, argv.body, argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        })
+    }
 })
 
 yargs.command({
@@ -107,7 +143,14 @@ yargs.command({
             type: 'string'
         }
     },
-    handler(argv) { fileCrud.removeJsonFromFile(argv.id, argv.fileName, null) }
+    handler(argv) { 
+        fileCrud.removeJsonFromFile(argv.id, argv.fileName, (error, data) => {
+            if (error) {
+                return logging.err(error)
+            }
+            logging.log(data)
+        })
+    }
 })
 
 yargs.parse()

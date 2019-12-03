@@ -44,38 +44,37 @@ app.get('/file', (req, res) => {
     res.render('index', fileModel)
 })
 
-// app.get('/file/main', (req, res) => {
-//     fileModel.name = appOwner
-//     res.render('index', fileModel)
-// })
-
 app.get('/file/main', (req, res) => {
-    if (!req.query.a) {
+    fileModel.data = []
+    fileModel.errMessage = ''
+    fileModel.infoMessage = ''
+    if (typeof req.query.a === typeof undefined || req.query.a === '') {        
         fileModel.errMessage = 'You must provide an action'
-        return res.send(errorModel)
+        return res.send(fileModel)
     }
-    if (!req.query.f) {
+    if (typeof req.query.f === typeof undefined || req.query.f === '') {        
         fileModel.errMessage = 'You must provide a file name'
         return res.send(fileModel)
     }
-
     if (req.query.a === 'l') {
         fileCrud.listJsonFromFile(req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'List file contents'
+            fileModel.infoMessage = 'List file contents'
             fileModel.data = data
             res.send(fileModel)
         })
     } else if (req.query.a === 'c') {
         fileCrud.clearJsonFromFile(req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'Clear file contents'
+            fileModel.infoMessage = 'Clear file contents'
             fileModel.data = data
             res.send(fileModel)
         })
@@ -86,10 +85,11 @@ app.get('/file/main', (req, res) => {
         }
         fileCrud.getJsonFromFile(req.query.id, req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'Get Item'
+            fileModel.infoMessage = 'Get Item'
             fileModel.data = data
             res.send(fileModel)
         })
@@ -104,10 +104,11 @@ app.get('/file/main', (req, res) => {
         }
         fileCrud.addJsonToFile(req.query.id, req.query.body, req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'Add Item'
+            fileModel.infoMessage = 'Add Item'
             fileModel.data = data
             res.send(fileModel)
         })
@@ -122,10 +123,11 @@ app.get('/file/main', (req, res) => {
         }
         fileCrud.editJsonFromFile(req.query.id, req.query.body, req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'Edit Item'
+            fileModel.infoMessage = 'Edit Item'
             fileModel.data = data
             res.send(fileModel)
         })
@@ -134,12 +136,13 @@ app.get('/file/main', (req, res) => {
             fileModel.errMessage = 'You must provide an id'
             return res.send(fileModel)
         }
-        fileCrud.editJsonFromFile(req.query.id, req.query.f, (error, data) => {
+        fileCrud.removeJsonFromFile(req.query.id, req.query.f, (error, data) => {
             if (error) {
-                return fileModel.errMessage = error
+                fileModel.errMessage = error
+                return res.send(fileModel)
             }
 
-            fileModel.message = 'Remove Item'
+            fileModel.infoMessage = 'Remove Item'
             fileModel.data = data
             res.send(fileModel)
         })
