@@ -72,7 +72,9 @@ code {
     color: white;
 }
 
-#homeBody #homeMenuHome {
+#homeBody #homeMenuHome,
+#homeBody #homeMenuAbout,
+#homeBody #homeMenuHelp {
     color:navy;
 }
 
