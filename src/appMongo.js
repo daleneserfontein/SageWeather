@@ -11,8 +11,10 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const logging = require('./logging')
+const mongo = require('../src/utils/mongo')
 
-const mongoModel = require('../public/dto/mongoModel')
+//let mongoModel = require('../public/dto/mongoModel')
+const errorModel = require('../public/dto/errorModel')
 const appOwner = 'Dalene Serfontein'
 
 const app = module.exports = express()
@@ -34,8 +36,15 @@ app.use(express.static(htmlFilePath))
 //Request calls
 
 app.get('/mongo', (req, res) => {
-    mongoModel.name = appOwner
-    res.render('index', mongoModel)
+    mongo.readDataFromDB((error, data) => {
+        if (error) {
+            errorModel.description = error
+            return res.send(errorModel)
+        }
+        data.name = appOwner
+        res.render('index', data)    
+    })
+    
 })
 
 // app.get('/mongo/*', (req, res) => {

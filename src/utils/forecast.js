@@ -15,7 +15,7 @@ module.exports.getForecast = (url, data, callback) => {
             data.temperature = body.currently.temperature + '°C'
             data.rain = Math.round(body.currently.precipProbability*100,0) + '% chance of rain'
             data.high = body.daily.data[0].temperatureHigh + '°C'
-            data.low = body.daily.data[0].temperatureLow + '°C'
+            data.low = body.daily.data[0].temperatureLow + '°C'            
             myDB.saveDataToDB(data)
             callback(null, data)
         }

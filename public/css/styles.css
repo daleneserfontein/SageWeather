@@ -173,3 +173,15 @@ code {
 #menuItems {
     font-size: larger;
 }
+/* 
+#mongoDiv table {
+    border: 1px solid #FF6000;
+}
+
+#mongoDiv tr {
+    border: 1px solid #FF6000;
+} */
+
+#mongoDiv td {
+    border: 1px solid #FF6000;
+}
