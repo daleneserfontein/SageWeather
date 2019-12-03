@@ -17,14 +17,12 @@ const appMongo = require('./appMongo')
 const appFile = require('./appFile')
 
 const homeModel = require('../public/dto/homeModel')
+const aboutModel = require('../public/dto/aboutModel')
+const errorModel = require('../public/dto/errorModel')
+const helpModel = require('../public/dto/helpModel')
 const logging = require('./logging')
 const port = process.env.PORT || 3000
-
-
-
-
-
-
+const appOwner = 'Dalene Serfontein'
 const app = express()
 
 
@@ -52,11 +50,36 @@ app.get('', (req, res) => {
     
     homeModel.title = 'Butterflies'
     homeModel.dateToday = new Date()
-    homeModel.name = 'Dalene Serfontein'
+    homeModel.name = appOwner
     homeModel.description = 'This is the butterfly site'
     
     res.render('index', homeModel)
 })
+
+app.get('/about', (req, res) => {
+    aboutModel.name = appOwner
+    aboutModel.title = 'Butterflies - About'
+    aboutModel.description = 'This is the Butterflies App'
+    aboutModel.dateToday = new Date()
+    res.render('about', aboutModel)
+})
+
+app.get('/help', (req, res) => {
+    helpModel.name = appOwner
+    helpModel.title = 'Butterflies - Help'
+    helpModel.description = 'Need help with the Butterflies App?'
+    helpModel.dateToday = new Date()
+    res.render('help', helpModel)
+})
+
+app.get('/*', (req, res) => {
+    errorModel.name = appOwner
+    errorModel.title = 'Butterflies - Error'
+    errorModel.description = 'An error occured!'
+    errorModel.dateToday = new Date()
+    res.render('error', errorModel)
+})
+
 
 
 //Setup Server

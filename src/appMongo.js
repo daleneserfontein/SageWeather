@@ -13,8 +13,10 @@ const hbs = require('hbs')
 const logging = require('./logging')
 const mongo = require('../src/utils/mongo')
 
-//let mongoModel = require('../public/dto/mongoModel')
+const aboutModel = require('../public/dto/aboutModel')
+const helpModel = require('../public/dto/helpModel')
 const errorModel = require('../public/dto/errorModel')
+
 const appOwner = 'Dalene Serfontein'
 
 const app = module.exports = express()
@@ -47,9 +49,29 @@ app.get('/mongo', (req, res) => {
     
 })
 
-// app.get('/mongo/*', (req, res) => {
-//     errorModel.name = appOwner
-//     res.render('error', errorModel)
-// })
+app.get('/mongo/about', (req, res) => {
+    aboutModel.name = appOwner
+    aboutModel.title = 'Mongo - About'
+    aboutModel.description = 'This is the Mongos App'
+    aboutModel.dateToday = new Date()
+    res.render('about', aboutModel)
+})
+
+app.get('/mongo/help', (req, res) => {
+    helpModel.name = appOwner
+    helpModel.title = 'Mongo - Help'
+    helpModel.description = 'Need help with the Mongo App?'
+    helpModel.dateToday = new Date()
+    res.render('help', helpModel)
+})
+
+app.get('/mongo/*', (req, res) => {
+    errorModel.name = appOwner
+    errorModel.title = 'Mongo - Error'
+    errorModel.description = 'An error occured!'
+    errorModel.dateToday = new Date()
+    res.render('error', errorModel)
+})
+
 
 

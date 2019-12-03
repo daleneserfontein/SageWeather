@@ -1,6 +1,6 @@
 module.exports = {
-    title: 'Weather App - Error',
+    title: '',
     dateToday: new Date(),
-    description: 'That page does not exist',
+    description: '',
     name: ''
 }

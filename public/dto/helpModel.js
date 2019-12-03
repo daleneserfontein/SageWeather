@@ -1,6 +1,6 @@
 module.exports = {
-    title: 'Weather App - Help',
+    title: '',
     dateToday: new Date(),
-    description: 'Need some help with the weather app?',
+    description: '',
     name: ''
 }

@@ -15,6 +15,10 @@ const yargs = require('yargs')
 const fileCrud = require('./utils/fileCrud')
 
 const fileModel = require('../public/dto/fileModel')
+const aboutModel = require('../public/dto/aboutModel')
+const helpModel = require('../public/dto/helpModel')
+const errorModel = require('../public/dto/errorModel')
+
 const appOwner = 'Dalene Serfontein'
 
 const app = module.exports = express()
@@ -40,7 +44,28 @@ app.get('/file', (req, res) => {
     res.render('index', fileModel)
 })
 
-// app.get('/file/*', (req, res) => {
-//     errorModel.name = appOwner
-//     res.render('error', errorModel)
-// })
+app.get('file/about', (req, res) => {
+    aboutModel.name = appOwner
+    aboutModel.title = 'Files - About'
+    aboutModel.description = 'This is the Files App'
+    aboutModel.dateToday = new Date()
+    res.render('about', aboutModel)
+})
+
+app.get('/file/help', (req, res) => {
+    helpModel.name = appOwner
+    helpModel.title = 'Files - Help'
+    helpModel.description = 'Need help with the Files App?'
+    helpModel.dateToday = new Date()
+    res.render('help', helpModel)
+})
+
+app.get('/file/*', (req, res) => {
+    errorModel.name = appOwner
+    errorModel.title = 'File - Error'
+    errorModel.description = 'An error occured!'
+    errorModel.dateToday = new Date()
+    res.render('error', errorModel)
+})
+
+

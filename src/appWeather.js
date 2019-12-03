@@ -75,16 +75,25 @@ app.get('/weather/main', (req, res) => {
 
 app.get('/weather/about', (req, res) => {
     aboutModel.name = appOwner
+    aboutModel.title = 'Weather - About'
+    aboutModel.description = 'This is the Weather App'
+    aboutModel.dateToday = new Date()
     res.render('about', aboutModel)
 })
 
 app.get('/weather/help', (req, res) => {
     helpModel.name = appOwner
+    helpModel.title = 'Weather - Help'
+    helpModel.description = 'Need help with the Weather App?'
+    helpModel.dateToday = new Date()
     res.render('help', helpModel)
 })
 
 app.get('/weather/*', (req, res) => {
     errorModel.name = appOwner
+    errorModel.title = 'Weather - Error'
+    errorModel.description = 'An error occured!'
+    errorModel.dateToday = new Date()
     res.render('error', errorModel)
 })
 

@@ -1,8 +1,8 @@
 
 module.exports = {
-    title: 'Weather App - About',
+    title: '',
     dateToday: new Date(),
     name: '',    
-    description: 'This is a weather app'
+    description: ''
 }
 
