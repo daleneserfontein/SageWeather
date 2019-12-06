@@ -1,0 +1,32 @@
+<img class="imgAll" src="img/mongo/home.png">
+<p>{{description}}</p>
+<div id="mongoDiv">
+    <table>        
+        <tr>
+            <td>Key</td>
+            <td>Added</td>
+            <td>Place</td>
+            <td>Temp</td>
+            <td>High</td>
+            <td>Low</td>
+            <td>Latitude</td>
+            <td>Longitude</td> 
+            <td>Summary</td>
+            <td>Rain</td>
+        </tr>
+        {{#each searchResult}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.dateAdded}}</td>
+            <td>{{this.placeName}}</td>
+            <td>{{this.temperature}}</td>
+            <td>{{this.high}}</td>
+            <td>{{this.low}}</td>
+            <td>{{this.latitude}}</td>
+            <td>{{this.longitude}}</td>
+            <td>{{this.summary}}</td>
+            <td>{{this.rain}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

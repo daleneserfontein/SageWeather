@@ -7,20 +7,19 @@
 //
 //*****************************************
 
-
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 
-const appWeather = require('./appWeather')
-const appMongo = require('./appMongo')
-const appFile = require('./appFile')
+const appWeather = require('../src/weather/app')
+const appMongo = require('../src/mongo/app')
+const appFile = require('../src/file/app')
 
-const homeModel = require('../public/dto/homeModel')
-const aboutModel = require('../public/dto/aboutModel')
-const errorModel = require('../public/dto/errorModel')
-const helpModel = require('../public/dto/helpModel')
-const logging = require('./logging')
+const aboutModel = require('../model/share/aboutModel')
+const errorModel = require('../model/share/errorModel')
+const helpModel = require('../model/share/helpModel')
+const homeModel = require('../model/home/homeModel')
+const logging = require('./share/logging')
 const port = process.env.PORT || 3000
 const appOwner = 'Dalene Serfontein'
 const app = express()
@@ -29,9 +28,9 @@ const app = express()
 //Define paths for express config
 
 //express expects the views directory for the handlebars pages.  if it is not present, need to set the path to templates
-const htmlFilePath = path.join(__dirname, '../public')
-const viewsPath = path.join(__dirname, '../templates/views/home')
-const partialsPath = path.join(__dirname, '../templates/partials/home')
+const htmlFilePath = path.join(__dirname, '../pages')
+const viewsPath = path.join(__dirname, '../pages/views/home')
+const partialsPath = path.join(__dirname, '../pages/partials/home')
 
 //Setup handlebars engine and views location
 app.set('view engine', 'hbs') //handlebars templates for pages
