@@ -1,0 +1,45 @@
+<img class="imgAll" src="../img/mongo/find.png">
+<p>{{description}}</p>
+
+<p id="infoMessage">Results for "{{location}}"</p>
+<p id="errMessage"></p>
+
+<form>
+    <input placeholder="Location">
+    <button>Search</button>
+</form>
+
+<div id="mongoDiv">
+    <table>
+        <tr>
+            <td>Key</td>
+            <td>Added</td>
+            <td>Place</td>
+            <td>Temp</td>
+            <td>High</td>
+            <td>Low</td>
+            <td>Latitude</td>
+            <td>Longitude</td>
+            <td>Summary</td>
+            <td>Rain</td>
+        </tr>
+        <tr>
+            <td id="idId"></td>
+            <td id="idDateAdded">{{this.dateAdded}}</td>
+            <td id="idPlaceName">{{this.placeName}}</td>
+            <td id="idTemperature">{{this.temperature}}</td>
+            <td id="idHigh">{{this.high}}</td>
+            <td id="idLow">{{this.low}}</td>
+            <td id="idLatitude">{{this.latitude}}</td>
+            <td id="idLongitude">{{this.longitude}}</td>
+            <td id="idSummary">{{this.summary}}</td>
+            <td id="idRain">{{this.rain}}</td>
+        </tr>
+        
+    </table>
+    </div>
+    
+
+
+
+<script src="../js/mongo/clientMongo.js"></script>

@@ -5,6 +5,7 @@ const hbs = require('hbs')
 const aboutModel = require('../../model/share/aboutModel')
 const helpModel = require('../../model/share/helpModel')
 const errorModel = require('../../model/share/errorModel')
+const findIndexModel = require('../../model/mongo/findIndexModel')
 
 const mongo = require('./mongo')
 
@@ -38,6 +39,27 @@ app.get('/mongo', (req, res) => {
         res.render('index', data)    
     })
     
+})
+
+app.get('/mongo/find', (req, res) => {
+    findIndexModel.name = appOwner
+    res.render('find', findIndexModel)
+})
+
+app.get('/mongo/findOne', (req, res) => {
+    if (!req.query.location) {
+        errorModel.description = 'You must provide a location'
+        return res.send(errorModel)        
+    }
+
+    mongo.readSingleDataFromDB(encodeURIComponent(req.query.location), (error, data) => {
+        if (error) {
+            errorModel.description = error
+            return res.send(errorModel)
+        }
+        data.name = appOwner
+        res.send(data)    
+    })
 })
 
 app.get('/mongo/about', (req, res) => {
